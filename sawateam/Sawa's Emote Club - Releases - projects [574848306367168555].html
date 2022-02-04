@@ -1,0 +1,1680 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Sawa&#39;s Emote Club - projects</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+            font-weight: 300;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+            font-weight: 500;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+            font-weight: 600;
+        }
+
+        @font-face {
+            font-family: Whitney;
+            src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+            font-weight: 700;
+        }
+
+        body {
+            background-color: #36393e;
+            color: #dcddde;
+            font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+        }
+
+        a {
+            color: #00aff4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            object-fit: contain;
+        }
+
+        .markdown {
+            max-width: 100%;
+            line-height: 1.3;
+            overflow-wrap: break-word;
+        }
+
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+
+        .spoiler-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .spoiler-text--hidden {
+            cursor: pointer;
+            background-color: #202225;
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .spoiler-text--hidden:hover {
+            background-color: rgba(32, 34, 37, 0.8);
+        }
+
+        .spoiler-text--hidden::selection {
+            color: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            display: flex;
+            margin: 0.05em 0;
+        }
+
+        .quote::before {
+            content: "";
+            margin-right: 0.5em;
+            border: 2px solid #4f545c;
+            border-radius: 3px;
+        }
+
+        .pre {
+            background-color: #2f3136;
+            font-family: "Consolas", "Courier New", Courier, monospace;
+        }
+
+        .pre--multiline {
+            margin-top: 0.25em;
+            padding: 0.5em;
+            border: 2px solid #282b30;
+            border-radius: 5px;
+            color: #b9bbbe;
+        }
+
+        .pre--multiline.hljs {
+            background-color: #2f3136;
+            color: #b9bbbe;
+        }
+
+        .pre--inline {
+            padding: 2px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+
+        .mention {
+            border-radius: 3px;
+            padding: 0 2px;
+            color: #dee0fc;
+            background-color: rgba(88, 101, 242, .3);
+            font-weight: 500;
+        }
+
+        .mention:hover {
+            background-color: #5865f2;
+            color: #ffffff
+        }
+
+        .timestamp {
+            border-radius: 3px;
+            padding: 0 2px;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .emoji {
+            width: 1.325em;
+            height: 1.325em;
+            margin: 0 0.06em;
+            vertical-align: -0.4em;
+        }
+
+        .emoji--small {
+            width: 1em;
+            height: 1em;
+        }
+
+        .emoji--large {
+            width: 2.8em;
+            height: 2.8em;
+        }
+
+        .preamble {
+            display: grid;
+            margin: 0 0.3em 0.6em 0.3em;
+            max-width: 100%;
+            grid-template-columns: auto 1fr;
+        }
+
+        .preamble__guild-icon-container {
+            grid-column: 1;
+        }
+
+        .preamble__guild-icon {
+            max-width: 88px;
+            max-height: 88px;
+        }
+
+        .preamble__entries-container {
+            grid-column: 2;
+            margin-left: 0.6em;
+        }
+
+        .preamble__entry {
+            font-size: 1.4em;
+            color: #ffffff;
+        }
+
+        .preamble__entry--small {
+            font-size: 1em;
+        }
+
+        .chatlog {
+            max-width: 100%;
+        }
+
+        .chatlog__message-group {
+            display: grid;
+            margin: 0 0.6em;
+            padding: 0.9em 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            grid-template-columns: auto 1fr;
+        }
+
+        .chatlog__reference-symbol {
+            grid-column: 1;
+            margin: 8px 4px 4px 18px;
+            border-left: 2px solid #4f545c;
+            border-top: 2px solid #4f545c;
+            border-radius: 8px 0 0 0;
+        }
+
+        .chatlog__reference {
+            display: flex;
+            grid-column: 2;
+            margin-bottom: 0.25em;
+            font-size: 0.875em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            align-items: center;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-avatar {
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            margin-right: 0.25em;
+        }
+
+        .chatlog__reference-name {
+            margin-right: 0.3em;
+            font-weight: 600;
+        }
+
+        .chatlog__reference-content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__reference-content a:hover {
+            text-decoration: none;
+        }
+
+        .chatlog__reference-link {
+            cursor: pointer;
+            color: #b5b6b8;
+        }
+
+        .chatlog__reference-link * {
+            display: inline;
+            pointer-events: none;
+        }
+
+        .chatlog__reference-link:hover {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-link:hover *:not(.spoiler-text) {
+            color: #ffffff;
+        }
+
+        .chatlog__reference-edited-timestamp {
+            margin-left: 0.25em;
+            font-size: 0.8em;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__author-avatar-container {
+            grid-column: 1;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+        }
+
+        .chatlog__author-avatar {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chatlog__messages {
+            grid-column: 2;
+            min-width: 50%;
+            direction: ltr;
+        }
+
+        .chatlog__author-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .chatlog__timestamp {
+            margin-left: 0.3em;
+            font-size: 0.75em;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__message {
+            padding: 0.1em 0.3em;
+            margin: 0 -0.3em;
+            background-color: transparent;
+            transition: background-color 1s ease;
+        }
+
+        .chatlog__message--highlighted {
+            background-color: rgba(114, 137, 218, 0.2);
+        }
+
+        .chatlog__message--pinned {
+            background-color: rgba(249, 168, 37, 0.05);
+        }
+
+        .chatlog__content {
+            font-size: 0.95em;
+            word-wrap: break-word;
+        }
+
+        .chatlog__edited-timestamp {
+            margin-left: 0.15em;
+            font-size: 0.8em;
+        }
+
+        .chatlog__attachment {
+            display: inline-block;
+            position: relative;
+            margin-top: 0.3em;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden {
+            cursor: pointer;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatlog__attachment--hidden * {
+            pointer-events: none;
+        }
+
+        .chatlog__attachment-spoiler-caption {
+            display: none;
+            z-index: 999;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            padding: 0.4em 0.8em;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 20px;
+            color: #dcddde;
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-spoiler-caption {
+            display: block;
+        }
+
+        .chatlog__attachment--hidden:hover .chatlog__attachment-spoiler-caption {
+            color: #fff;
+        }
+
+        .chatlog__attachment-media {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-media {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic {
+            width: 100%;
+            max-width: 520px;
+            height: 40px;
+            padding: 10px;
+            background-color: #2f3136;
+            border: 1px solid #292b2f;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .chatlog__attachment--hidden .chatlog__attachment-generic {
+            filter: blur(44px);
+        }
+
+        .chatlog__attachment-generic-icon {
+            float: left;
+            width: 30px;
+            height: 100%;
+            margin-right: 10px;
+        }
+
+        .chatlog__attachment-generic-size {
+            color: #72767d;
+            font-size: 12px;
+        }
+
+        .chatlog__attachment-generic-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .chatlog__edited-timestamp {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatlog__embed {
+            display: flex;
+            margin-top: 0.3em;
+            max-width: 520px;
+        }
+
+        .chatlog__embed-color-pill {
+            flex-shrink: 0;
+            width: 0.25em;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+
+        .chatlog__embed-color-pill--default {
+            background-color: #202225;
+        }
+
+        .chatlog__embed-content-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 0.6em;
+            background-color: rgba(46, 48, 54, 0.3);
+            border: 1px solid rgba(46, 48, 54, 0.6);
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .chatlog__embed-content {
+            display: flex;
+            width: 100%;
+        }
+
+        .chatlog__embed-text {
+            flex: 1;
+        }
+
+        .chatlog__embed-author {
+            display: flex;
+            margin-bottom: 0.3em;
+            align-items: center;
+        }
+
+        .chatlog__embed-author-icon {
+            margin-right: 0.5em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .chatlog__embed-author-name {
+            font-size: 0.875em;
+            font-weight: 600;
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            color: #ffffff
+        }
+
+        .chatlog__embed-author-name-link {
+            color: #ffffff;
+        }
+
+        .chatlog__embed-title {
+            margin-bottom: 0.2em;
+            font-size: 0.875em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-description {
+            font-weight: 500;
+            font-size: 0.85em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 0.5em;
+        }
+
+        .chatlog__embed-field {
+            flex: 0;
+            min-width: 100%;
+            max-width: 506px;
+            padding-top: 0.6em;
+            font-size: 0.875em;
+        }
+
+        .chatlog__embed-field--inline {
+            flex: 1;
+            flex-basis: auto;
+            min-width: 150px;
+        }
+
+        .chatlog__embed-field-name {
+            margin-bottom: 0.2em;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .chatlog__embed-field-value {
+            font-weight: 500;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-thumbnail {
+            flex: 0;
+            margin-left: 1.2em;
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-image-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-image {
+            max-width: 500px;
+            max-height: 400px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-footer {
+            margin-top: 0.6em;
+            color: #dcddde;
+        }
+
+        .chatlog__embed-footer-icon {
+            margin-right: 0.2em;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+
+        .chatlog__embed-footer-text {
+            vertical-align: middle;
+            font-size: 0.75em;
+            font-weight: 500;
+        }
+
+        .chatlog__embed-plainimage {
+            vertical-align: top;
+            max-width: 45vw;
+            max-height: 500px;
+            border-radius: 3px;
+        }
+
+        .chatlog__embed-spotify {
+            border: 0;
+        }
+
+        .chatlog__embed-youtube-container {
+            margin-top: 0.6em;
+        }
+
+        .chatlog__embed-youtube {
+            border: 0;
+            border-radius: 3px;
+        }
+
+        .chatlog__reactions {
+            display: flex;
+        }
+
+        .chatlog__reaction {
+            display: flex;
+            align-items: center;
+            margin: 0.35em 0.1em 0.1em 0;
+            padding: .125rem .375rem;
+            background-color: #2f3136;
+            border-radius: 8px;
+            border-color: transparent;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .chatlog__reaction:hover {
+            border-color: hsla(0,0%,100%,.2);
+            border-width: 1px;
+            border-style: solid;
+            background-color: transparent;
+        }
+
+        .chatlog__reaction-count {
+            min-width: 9px;
+            margin-left: 0.35em;
+            font-size: 0.875em;
+            color: #b9bbbe;
+        }
+
+        .chatlog__reaction:hover .chatlog__reaction-count {
+            color: #dcddde;
+        }
+
+        .chatlog__bot-tag {
+            position: relative;
+            top: -.1em;
+            margin-left: 0.3em;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+            line-height: 1.3;
+            background-color: #5865F2;
+            color: #ffffff;
+            font-size: 0.625em;
+            font-weight: 500;
+        }
+
+        .postamble {
+            margin: 1.4em 0.3em 0.6em 0.3em;
+            padding: 1em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .postamble__entry {
+            color: #ffffff;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler-text--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler-text--hidden');
+            }
+            if (element && element.classList.contains('chatlog__attachment--hidden')) {
+                event.preventDefault();
+                element.classList.remove('chatlog__attachment--hidden');
+            }
+        }
+    </script>
+
+    <svg style="display: none">
+        <symbol id="icon-attachment" viewBox="0 0 720 960">
+            <path fill="#f4f5fb" d="M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z" />
+            <path fill="#7789c4" d="M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z" />
+            <path fill="#f4f5fb" d="M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z" />
+            <path fill="#7789c4" d="M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z" />
+        </symbol>
+    </svg>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="https://cdn.discordapp.com/icons/558280453824446474/a_b5594324271674722d5056404169e478.png" alt="Guild icon" loading="lazy">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Sawa&#39;s Emote Club</div>
+        <div class="preamble__entry">Releases / projects</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/542457370413105163/a_4a37686ce52b4b0f8f2329127f95a4fc.gif?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="sawakaya#2232" data-user-id="542457370413105163" style="color: rgb(0,255,204)">sawakaya</span>
+
+
+        <span class="chatlog__timestamp">08-May-19 04:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="575828592731095050" id="message-575828592731095050" title="Message sent: 08-May-19 04:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">These are the projects that we are currently working on: </div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="575830161870553098" id="message-575830161870553098" title="Message sent: 08-May-19 04:43 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">MANHWA</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="575830319312142348" id="message-575830319312142348" title="Message sent: 08-May-19 04:44 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/575830319312142346/00_Cover.jpg">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/575830319312142346/00_Cover.jpg" alt="Image attachment" title="Image: 00_Cover.jpg (642.29 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="575830681649807362" id="message-575830681649807362" title="Message sent: 08-May-19 04:45 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong> The Justice of a Villainous Woman</strong>  <strong>(completed)</strong></span>
+
+                                <span class="chatlog__edited-timestamp" title="03-Nov-21 04:49 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="575830787207856128" id="message-575830787207856128" title="Message sent: 08-May-19 04:45 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">The day I lost my boyfriend to my best friend, I fell into the Han River by mistake. And when I woke up, I became a famous duke&#39;s daughter named Chartiana Altizer Cailon - who&#39;s known as the villain!?
+&quot;I&#39;ve already chosen my empress, and you&#39;re just pawn.&quot; 
+&quot;I will be the empress of the Empire.&quot;
+My fate was also determined the moment I was appointed as the next empress candidate by Regina. Regina has two candidates, Irene, who is the lover of the Crown Prince and me, Chartiana. To protect my beloved family from the court&#39;s evil schemes, I cannot help but become the evil villain and win the position of Empress. To be happy with the people I love, I became the antagonist.</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="575830993152376842" id="message-575830993152376842" title="Message sent: 08-May-19 04:46 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>source: <a href="https://www.mangaupdates.com/series.html?id=151835">https://www.mangaupdates.com/series.html?id=151835</a></em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="575831149679607839" id="message-575831149679607839" title="Message sent: 08-May-19 04:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">**</span>
+
+                                <span class="chatlog__edited-timestamp" title="06-Jul-20 09:20 PM">(edited)</span>
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/575831149679607838/00_Cover.jpg">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/575831149679607838/00_Cover.jpg" alt="Image attachment" title="Image: 00_Cover.jpg (154.57 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="575831216201138187" id="message-575831216201138187" title="Message sent: 08-May-19 04:47 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Masked Woman</strong> <strong>(completed)</strong></span>
+
+                                <span class="chatlog__edited-timestamp" title="06-Jul-20 09:21 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="575831304445231145" id="message-575831304445231145" title="Message sent: 08-May-19 04:48 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">Who wouldn&#39;t be upset if they had a boss who treated them cruelly and unfairly? That is the life of Eom Boran, Henzel Company secretary under the leadership of Kwon Sehu. Unable to forget, Boran decided to vent her frustration by writing children&#39;s picture books. In the book, Boran drew Mr. Kwon, &#39;Huse&#39;, as a child who likes to bully his friends. Boran thought Mr. Kwon would never find out about the book, but fate said something else. What will happen to Boran? Can Boran hide the truth about the book from Mr. Kwon?</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="575831494342475776" id="message-575831494342475776" title="Message sent: 08-May-19 04:48 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>source: <a href="https://www.mangaupdates.com/series.html?id=153177">https://www.mangaupdates.com/series.html?id=153177</a></em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="575832046782644235" id="message-575832046782644235" title="Message sent: 08-May-19 04:50 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/575832046782644234/00_cover.jpg">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/575832046782644234/00_cover.jpg" alt="Image attachment" title="Image: 00_cover.jpg (189.87 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="575832142446329876" id="message-575832142446329876" title="Message sent: 08-May-19 04:51 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>You’re My Destiny</strong> <strong>(completed)</strong></span>
+
+                                <span class="chatlog__edited-timestamp" title="22-Nov-20 08:30 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="575832219877113876" id="message-575832219877113876" title="Message sent: 08-May-19 04:51 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><div class="pre pre--multiline nohighlight">Han Sora is a 20yo University student who is a fan of the boyband group called Destiny. She is the reincarnation of Pandora. Meanwhile, Prome is a member of Destiny, and he is the reincarnation of the god Prometheus. He wants to escape the &#39;Curse of Zeus&#39; and be rid of his fears. For that, he must open Pandora&#39;s box. Will Prome escape the curse?</div>
+<em>source: <a href="https://www.mangaupdates.com/series.html?id=154077">https://www.mangaupdates.com/series.html?id=154077</a></em></span>
+
+                                <span class="chatlog__edited-timestamp" title="08-May-19 10:28 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/306311074721038338/2c9df220726c1114830175ba502d4a2a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="bilunala#0015" data-user-id="306311074721038338" style="color: rgb(0,255,179)">lunaaaaa</span>
+
+
+        <span class="chatlog__timestamp">23-Jun-19 02:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="592461226076798987" id="message-592461226076798987" title="Message sent: 23-Jun-19 02:09 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/592461226076798986/the_pale_horse.jpg">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/592461226076798986/the_pale_horse.jpg" alt="Image attachment" title="Image: the_pale_horse.jpg (53.6 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="592461584618618941" id="message-592461584618618941" title="Message sent: 23-Jun-19 02:10 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Pale Horse</strong> (Official Scans)
+<div class="pre pre--multiline nohighlight">In a French town wracked by fear, Rose Dupre is bullied as a witch&#39;s daughter. Marie and Peter don&#39;t believe such rumors at first. But when a wave of strange deaths sweeps in, the three children are no longer safe from wary eyes. Can Rose survive the curse of magic and suspicion? An expansive yet colorful gothic tale begins.</div>
+source: <a href="https://www.mangaupdates.com/series.html?id=73772">https://www.mangaupdates.com/series.html?id=73772</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/330667985402593280/6d0dd921bfcb3cd1a6292638e89ef3ed.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Nicoreeni#2242" data-user-id="330667985402593280" style="color: rgb(0,255,179)">Nicoreeni</span>
+
+
+        <span class="chatlog__timestamp">18-Sep-19 02:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="623992750760525824" id="message-623992750760525824" title="Message sent: 18-Sep-19 02:24 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/623992750085373973/00_cover.jpg">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/623992750085373973/00_cover.jpg" alt="Image attachment" title="Image: 00_cover.jpg (443.11 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="623992810689003532" id="message-623992810689003532" title="Message sent: 18-Sep-19 02:24 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Restrain (completed)</strong>
+<div class="pre pre--multiline nohighlight">Song Yoonju is well-known as the first rank employee in her division, but because of her past, she has always closed herself off from serious relationships whether it is friendships or romance. But ever since the arrival of Gu Jaehee in her division, she finds the wall that she had built slowly collapsing as she falls in love with a man who had recently gone through a breakup. How will their love story play out?</div>
+<em>source: <a href="https://www.mangaupdates.com/series.html?id=152675">https://www.mangaupdates.com/series.html?id=152675</a></em></span>
+
+                                <span class="chatlog__edited-timestamp" title="05-Jul-20 10:25 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/445968767265144843/bded97a9b2a523995f133dadeff0b46e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lyrafiel#8439" data-user-id="445968767265144843" style="color: rgb(0,255,179)">Lyrafiel</span>
+
+
+        <span class="chatlog__timestamp">12-Oct-19 11:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="632825397293088789" id="message-632825397293088789" title="Message sent: 12-Oct-19 11:22 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/632825396827652096/Cover_19thCM.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/632825396827652096/Cover_19thCM.png" alt="Image attachment" title="Image: Cover_19thCM.png (2.08 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="632825414829604865" id="message-632825414829604865" title="Message sent: 12-Oct-19 11:22 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>19th Century Memoir</strong>
+
+<div class="pre pre--multiline nohighlight">Set in late the 19th century, England. Lillian, who was separated from her brother at a young age due to the deaths of their parents, reunites with him in a beautiful mansion. However, there are many mysteries surrounding their pasts.</div>
+Will be a collab with Misty Rain Scans.
+First 5 chapters available to read here: <a href="https://mangadex.org/title/20093/19th-century-memoir">https://mangadex.org/title/20093/19th-century-memoir</a>
+<em>source: <a href="https://www.mangaupdates.com/series.html?id=133804">https://www.mangaupdates.com/series.html?id=133804</a></em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/445968767265144843/bded97a9b2a523995f133dadeff0b46e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lyrafiel#8439" data-user-id="445968767265144843" style="color: rgb(0,255,179)">Lyrafiel</span>
+
+
+        <span class="chatlog__timestamp">18-Oct-19 08:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="634960492011585536" id="message-634960492011585536" title="Message sent: 18-Oct-19 08:46 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>A Witch&#39;s Hopeless Wish (Dropped)</strong>
+
+<div class="pre pre--multiline nohighlight">&quot;If I had died then...&quot; Caidel lost everything in a fire. With no home or family, Caidel ended up alone in an orphanage. Unfortunately, he was ostracized and had a hard time. Then one day, the Earl who knew the origins of the fire, came and asked to adopt him...
+
+&quot;Won&#39;t you search for the white-haired woman with me?&quot;
+The only clue to the arsonist was that she was a white-haired girl. She took everything from Caidel and the Earl. 
+
+The truth of the incident is being unveiled... but what if the truth takes everything from me again? What should I do?</div>
+
+<em>Mangaupdates link: <a href="https://www.mangaupdates.com/series.html?id=157525">https://www.mangaupdates.com/series.html?id=157525</a></em></span>
+
+                                <span class="chatlog__edited-timestamp" title="30-Nov-20 03:14 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/445968767265144843/bded97a9b2a523995f133dadeff0b46e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lyrafiel#8439" data-user-id="445968767265144843" style="color: rgb(0,255,179)">Lyrafiel</span>
+
+
+        <span class="chatlog__timestamp">19-Oct-19 08:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="635316944136044547" id="message-635316944136044547" title="Message sent: 19-Oct-19 08:22 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/635316944136044545/Cover_Art.jpg">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/635316944136044545/Cover_Art.jpg" alt="Image attachment" title="Image: Cover_Art.jpg (392.4 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="heart">
+                                <img class="emoji emoji--small" alt="heart" src="https://cdn.discordapp.com/emojis/778308451432005634.png" loading="lazy">
+                                <span class="chatlog__reaction-count">11</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/445968767265144843/bded97a9b2a523995f133dadeff0b46e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lyrafiel#8439" data-user-id="445968767265144843" style="color: rgb(0,255,179)">Lyrafiel</span>
+
+
+        <span class="chatlog__timestamp">19-Oct-19 08:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="635320689380950037" id="message-635320689380950037" title="Message sent: 19-Oct-19 08:37 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>No Marriage (Dropped)</strong>
+
+<div class="pre pre--multiline nohighlight">For 7 years, marriage was banned in the Kingdom of Great Joseon because the King lost his precious wife. Enter a marriage fraud specialist to save the day (while she sends the King and his trusted General into emotional chaos).</div>
+
+<em>mangaupdates: <a href="https://www.mangaupdates.com/series.html?id=155056">https://www.mangaupdates.com/series.html?id=155056</a></em></span>
+
+                                <span class="chatlog__edited-timestamp" title="22-Mar-21 01:36 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/445968767265144843/bded97a9b2a523995f133dadeff0b46e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lyrafiel#8439" data-user-id="445968767265144843" style="color: rgb(0,255,179)">Lyrafiel</span>
+
+
+        <span class="chatlog__timestamp">03-Nov-19 12:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="640643298901491741" id="message-640643298901491741" title="Message sent: 03-Nov-19 12:07 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/640643298352168990/0_cover_v1.jpg">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/640643298352168990/0_cover_v1.jpg" alt="Image attachment" title="Image: 0_cover_v1.jpg (149.54 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="640643762674204689" id="message-640643762674204689" title="Message sent: 03-Nov-19 12:09 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Meiji Hiiro Kitan - A Scarlet Romance of the Meiji Era</strong>
+
+<div class="pre pre--multiline nohighlight">It’s the middle of the Meiji Era and our heroine, little Suzu, is sold to the red lights district. However, the rich heir of a dry goods store, Tsugaru, buys her freedom for no apparent reason. She is deeply grateful for being saved, but she doesn’t understand why he paid so much money for her and the only explanation he offers is “we have a bond.”
+
+She tries to unravel the mystery of his feelings and gradually grows from a little girl to a young woman, always by his side. A gentle and slow-paced love story set in the Meiji Era.</div>
+
+We&#39;ll be picking it up started from Chapter 19.
+<em>source: <a href="https://www.mangaupdates.com/series.html?id=65991">https://www.mangaupdates.com/series.html?id=65991</a></em>
+First 18 chapters available to read here: <a href="https://mangadex.org/title/4830/meiji-hiiro-kitan">https://mangadex.org/title/4830/meiji-hiiro-kitan</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/445968767265144843/bded97a9b2a523995f133dadeff0b46e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lyrafiel#8439" data-user-id="445968767265144843" style="color: rgb(0,255,179)">Lyrafiel</span>
+
+
+        <span class="chatlog__timestamp">08-Dec-19 11:03 AM</span>
+
+            <div class="chatlog__message " data-message-id="653310782951653456" id="message-653310782951653456" title="Message sent: 08-Dec-19 11:03 AM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/653310782406262794/40868.jpg">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/653310782406262794/40868.jpg" alt="Image attachment" title="Image: 40868.jpg (595.73 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="653311170828304394" id="message-653311170828304394" title="Message sent: 08-Dec-19 11:05 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Unbending Flower</strong> (Dropped) This project will be continued by Jupiter Scans
+
+<div class="pre pre--multiline nohighlight">In a beautiful continent marred by political turmoil and instability, Dong Chu, a princess from a small Southern country, travels to the Northern Region to break off her engagement with the most powerful feudal lord in the region, Lord Lin Zhen Ying. 
+
+Contrary to expectations, he got caught in a scheme concocted by his enemies and turned into a harmless child. Will Dong Chu be able to successfully break off her engagement, or will she go out of her way to help a fallen lord reclaim what is his?</div>
+
+Collaboration with Aquila Scans and Bubble Tea Scans.
+<em>Read at mangadex: <a href="https://mangadex.org/title/40868/unbending-flower">https://mangadex.org/title/40868/unbending-flower</a></em></span>
+
+                                <span class="chatlog__edited-timestamp" title="14-Sep-20 01:06 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/445968767265144843/bded97a9b2a523995f133dadeff0b46e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lyrafiel#8439" data-user-id="445968767265144843" style="color: rgb(0,255,179)">Lyrafiel</span>
+
+
+        <span class="chatlog__timestamp">29-Dec-19 07:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="661045490917572619" id="message-661045490917572619" title="Message sent: 29-Dec-19 07:18 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/661045490393153536/00_cover.jpg">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/661045490393153536/00_cover.jpg" alt="Image attachment" title="Image: 00_cover.jpg (192.89 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="661045725412589582" id="message-661045725412589582" title="Message sent: 29-Dec-19 07:19 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Office Blind Date (Completed)</strong>
+
+<div class="pre pre--multiline nohighlight">A thrilling story of office romance. Shin Hari attended a blind date on behalf of a friend. But is suddenly proposed to by her own boss! Will Shin Hari be able to work at the company safely?!</div>
+
+<em>Source: <a href="https://www.mangaupdates.com/series.html?id=154195">https://www.mangaupdates.com/series.html?id=154195</a></em>
+<em>Chapters 1-16 can be found here: <a href="https://drive.google.com/drive/folders/1N8t8LJRFqJhykXbRK8XwrXEMEZR28Ndx">https://drive.google.com/drive/folders/1N8t8LJRFqJhykXbRK8XwrXEMEZR28Ndx</a></em></span>
+
+                                <span class="chatlog__edited-timestamp" title="11-Mar-21 04:50 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/445968767265144843/bded97a9b2a523995f133dadeff0b46e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lyrafiel#8439" data-user-id="445968767265144843" style="color: rgb(0,255,179)">Lyrafiel</span>
+
+
+        <span class="chatlog__timestamp">10-May-20 03:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="709169541757796382" id="message-709169541757796382" title="Message sent: 10-May-20 03:26 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/709169541212798996/cover.jpg">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/709169541212798996/cover.jpg" alt="Image attachment" title="Image: cover.jpg (126.61 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="709169716098236537" id="message-709169716098236537" title="Message sent: 10-May-20 03:27 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>A Vampire&#39;s First Love - Completed</strong>
+
+<div class="pre pre--multiline nohighlight">&quot;When you open your eyes in this world once more, you will fall in love with the human who possesses the other half of your heart.&quot;
+
+The story of the sealed vampire who finally meets his destined partner!</div>
+
+<em><a href="https://mangadex.org/title/47914/a-vampire-s-first-love">https://mangadex.org/title/47914/a-vampire-s-first-love</a></em>
+<em>Mangaupdates link: <a href="https://www.mangaupdates.com/series.html?id=153178">https://www.mangaupdates.com/series.html?id=153178</a></em></span>
+
+                                <span class="chatlog__edited-timestamp" title="20-Feb-21 10:32 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/445968767265144843/bded97a9b2a523995f133dadeff0b46e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lyrafiel#8439" data-user-id="445968767265144843" style="color: rgb(0,255,179)">Lyrafiel</span>
+
+
+        <span class="chatlog__timestamp">02-Jun-20 11:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="717631094882697306" id="message-717631094882697306" title="Message sent: 02-Jun-20 11:49 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/717631094622519296/00_cover.jpeg">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/717631094622519296/00_cover.jpeg" alt="Image attachment" title="Image: 00_cover.jpeg (404.44 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="717631606227075102" id="message-717631606227075102" title="Message sent: 02-Jun-20 11:51 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>The Villainess Lives Twice</strong>
+
+<div class="pre pre--multiline nohighlight">“Tia, your brother has to do well for you to do well.”
+
+By committing all sorts of evil acts, she made her brother the emperor. But her dedication was rewarded with betrayal. At the brink of death, the one who extended a helping hand was her arch nemesis, the righteous Grand Duke Cedric.
+
+It wasn&#39;t possible to restore the balance of power for an empire that was already falling into ruin, but there was a way... to turn back time before everything went wrong.
+
+With her blood and tears, she sacrifices her own body to cast ancient magic in order to turn back time.
+
+This time, she wouldn&#39;t fail.
+
+Returning back to her 18-year-old self, Artezia resolves to become the villainess for Grand Duke Cedric.
+
+&quot;Please ask for my hand in marriage. I will make you the Emperor.&quot;</div>
+
+In collaboration with Bell&#39;s Scans
+<em><a href="https://mangadex.org/title/49644/the-villainess-lives-twice">https://mangadex.org/title/49644/the-villainess-lives-twice</a></em></span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Jun-20 08:43 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction" title="thumbsup">
+                                <img class="emoji emoji--small" alt="&#128077;" src="https://twemoji.maxcdn.com/2/svg/1f44d.svg" loading="lazy">
+                                <span class="chatlog__reaction-count">226</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/445968767265144843/bded97a9b2a523995f133dadeff0b46e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lyrafiel#8439" data-user-id="445968767265144843" style="color: rgb(0,255,179)">Lyrafiel</span>
+
+
+        <span class="chatlog__timestamp">10-Jul-20 12:51 AM</span>
+
+            <div class="chatlog__message " data-message-id="731054895096135731" id="message-731054895096135731" title="Message sent: 10-Jul-20 12:51 AM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/731054894685093928/cover_jpg.jpg">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/731054894685093928/cover_jpg.jpg" alt="Image attachment" title="Image: cover_jpg.jpg (806.6 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="731055106384068699" id="message-731055106384068699" title="Message sent: 10-Jul-20 12:51 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>1/24 Romance (Dropped)</strong>
+
+<div class="pre pre--multiline nohighlight">Promoted at the speed of light, the star of JK Electronics, the ultimate career woman, yet always forever alone Cha Ju An!
+
+Kind, honest, full of vitality, and with the looks and physique to rival a model, yet bumbling fool Yoo Do Jin!
+
+With such different personalities, one day these two… #suddenly #withoutwarning #during #officehours switched souls?!!!
+
+Due to this switch, their lives are made a mess!!
+But what is the reason for this switch?
+And that reason is to match these two up by force!</div>
+
+<em><a href="https://mangadex.org/title/51349/1-24-romance">https://mangadex.org/title/51349/1-24-romance</a></em></span>
+
+                                <span class="chatlog__edited-timestamp" title="30-Nov-20 03:14 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/445968767265144843/bded97a9b2a523995f133dadeff0b46e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lyrafiel#8439" data-user-id="445968767265144843" style="color: rgb(0,255,179)">Lyrafiel</span>
+
+
+        <span class="chatlog__timestamp">14-Sep-20 01:06 AM</span>
+
+            <div class="chatlog__message " data-message-id="754976289366212629" id="message-754976289366212629" title="Message sent: 14-Sep-20 01:06 AM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/754976289076674661/cover.jpg">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/754976289076674661/cover.jpg" alt="Image attachment" title="Image: cover.jpg (191.89 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="754977015454629929" id="message-754977015454629929" title="Message sent: 14-Sep-20 01:09 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>My Heart Races Because of You</strong>
+
+<div class="pre pre--multiline nohighlight">Seo Geun Woo is the perfect celebrity. He&#39;s got it all: looks, posture, aura, pedigree, you name it! He is usually picky and hard to please especially when it comes to movies he watches. However, one day, a newcomer actress Min Seo Yeon caught his eye. For some reason he can’t fathom what it is about this girl that his usual composed self falters at the sight of her. It makes him feel uncomfortable but in a pleasant way… Is this what they call love?</div>
+
+<em><a href="https://mangadex.org/title/51311/my-heart-races-because-of-you">https://mangadex.org/title/51311/my-heart-races-because-of-you</a></em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/306311074721038338/2c9df220726c1114830175ba502d4a2a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="bilunala#0015" data-user-id="306311074721038338" style="color: rgb(0,255,179)">lunaaaaa</span>
+
+
+        <span class="chatlog__timestamp">14-Dec-20 09:01 AM</span>
+
+            <div class="chatlog__message " data-message-id="788088413340565514" id="message-788088413340565514" title="Message sent: 14-Dec-20 09:01 AM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/788088412975923210/cover.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/788088412975923210/cover.png" alt="Image attachment" title="Image: cover.png (1.59 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="788088513312063488" id="message-788088513312063488" title="Message sent: 14-Dec-20 09:02 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>I Became the Hero&#39;s Mom</strong> (webtoon - dropped, continued novel)
+
+<div class="pre pre--multiline nohighlight">I’d been stanning the hero for 3 years when I was suddenly caught red-handed by his tyrannical doting father, Duke Hades Louvremont.
+
+“Ceaseless pursuit, expensive gifts, and now you’ve come alone all this way up north with no regard for your life…”
+“I’m sorry. I have no excuse.”
+“Alright, I’ve lost. Your devotion is undeniable.”
+“...You think so too? Even I admit that this is the pinnacle of devotion.”
+“Many women have pursued me, but none as persistently as you. I stand amazed. Let’s hold it, then. Our wedding. As soon as possible.&quot;
+“Ha... Yes, I’ll accept my fate.”
+Silence.
+“Wait, pardon?! What?”
+What did he just say?
+Surely I must&#39;ve misheard?
+But the duke, smirking at my shocked face, gave the finishing blow.
+“I said, I’ll marry you.”
+Wow.
+The hero’s dad has an inflated ego.</div>
+
+<a href="https://sawateam.info/i-became-the-heros-mom/">https://sawateam.info/i-became-the-heros-mom/</a></span>
+
+                                <span class="chatlog__edited-timestamp" title="28-Nov-21 07:22 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/445968767265144843/bded97a9b2a523995f133dadeff0b46e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lyrafiel#8439" data-user-id="445968767265144843" style="color: rgb(0,255,179)">Lyrafiel</span>
+
+
+        <span class="chatlog__timestamp">04-Jan-21 09:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="795886098408013824" id="message-795886098408013824" title="Message sent: 04-Jan-21 09:27 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/795886098185322566/1.jpg">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/795886098185322566/1.jpg" alt="Image attachment" title="Image: 1.jpg (671.04 KB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795886309151080488" id="message-795886309151080488" title="Message sent: 04-Jan-21 09:28 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>I wouldn’t date a prince even if you asked! The banished villainess will start over with the power of magic~</strong>
+
+<div class="pre pre--multiline nohighlight">I won&#39;t lose heart!
+
+This is a story about a villainess who makes a comeback with the help of magic after being driven out of her own country!
+
+Cecilia is a former noble exiled from her mother country after the crown prince broke off their engagement on top of making some false accusations.
+
+She flees with her mother to a neighboring country, Theophilus. Hiding her identity, she makes up her mind to survive even if it means living a poor life. Just when she settles into the commoner lifestyle, Albert (her childhood friend and the crown prince of Theophilus) appears before her?</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="795886357318205480" id="message-795886357318205480" title="Message sent: 04-Jan-21 09:28 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://mangadex.org/title/59840/i-wouldn-t-date-a-prince-even-if-you-asked-the-banished-villainess-will-start-over-with-the-power-of-magic">https://mangadex.org/title/59840/i-wouldn-t-date-a-prince-even-if-you-asked-the-banished-villainess-will-start-over-with-the-power-of-magic</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/306311074721038338/2c9df220726c1114830175ba502d4a2a.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="bilunala#0015" data-user-id="306311074721038338" style="color: rgb(0,255,179)">lunaaaaa</span>
+
+
+        <span class="chatlog__timestamp">07-Jan-21 12:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="796663804447948800" id="message-796663804447948800" title="Message sent: 07-Jan-21 12:57 AM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/796663803731247204/furries.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/796663803731247204/furries.png" alt="Image attachment" title="Image: furries.png (2.03 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="796664036262936587" id="message-796664036262936587" title="Message sent: 07-Jan-21 12:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Forbidden City &#183; Impurrial Cat Room</strong>
+
+<div class="pre pre--multiline nohighlight">There are special creatures that live in the modern Forbidden City. 
+
+By day, they&#39;re the idols of the Forbidden City, and a simple yawn can earn the squeals of the crowd! By night, they&#39;re the protectors of the Forbidden City who watch over the restoration of cultural relics! While they could&#39;ve lived day to day on their cute appearances alone, they&#39;ve chosen to bear the burden of preserving culture and safeguarding relics. 
+
+They&#39;re the Forbidden City&#39;s Impurrial Cats!</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="796664053006467074" id="message-796664053006467074" title="Message sent: 07-Jan-21 12:58 AM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><a href="https://mangadex.org/title/59943/forbidden-city-impurrial-cat-room">https://mangadex.org/title/59943/forbidden-city-impurrial-cat-room</a></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="chatlog__message-group">
+
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="https://cdn.discordapp.com/avatars/445968767265144843/bded97a9b2a523995f133dadeff0b46e.png?size=128" alt="Avatar" loading="lazy">
+    </div>
+
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Lyrafiel#8439" data-user-id="445968767265144843" style="color: rgb(0,255,179)">Lyrafiel</span>
+
+
+        <span class="chatlog__timestamp">21-Mar-21 11:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="823446203391541279" id="message-823446203391541279" title="Message sent: 21-Mar-21 11:41 PM">
+
+                    <div class="chatlog__attachment " onclick="">
+
+                            <a href="https://cdn.discordapp.com/attachments/574848306367168555/823446203299004486/cover.png">
+                                <img class="chatlog__attachment-media" src="https://cdn.discordapp.com/attachments/574848306367168555/823446203299004486/cover.png" alt="Image attachment" title="Image: cover.png (1.07 MB)" loading="lazy">
+                            </a>
+                    </div>
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="823446362086440970" id="message-823446362086440970" title="Message sent: 21-Mar-21 11:41 PM">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Joseon Fox Scandal</strong>
+
+<div class="pre pre--multiline nohighlight">The traditional fairy tale we all know is actually a crime drama about the shapeshifters who fled from the sky!
+
+This story is about a fox sent down from the sky and Joseon’s greatest gisaeng swindler, Choran. Many skillful storytellers turn the gears of fairy tales around to talk about the evil gods and goblins who torment humankind, but let us now start a true story of love that will make even the sky tear.</div></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 46 message(s)</div>
+</div>
+
+</body>
+
+</html>
